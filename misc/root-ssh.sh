@@ -39,6 +39,7 @@ function msg_ok() {
 }
 
 msg_info "Setting up Root SSH"
+echo ""
 
 tmpfile="/tmp/authkeys.$$"
 
