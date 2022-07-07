@@ -119,6 +119,8 @@ msg_info "Installing Docker Compose $DOCKER_COMPOSE_LATEST_VERSION"
   mkdir -p $DOCKER_CONFIG/cli-plugins
   curl -sSL https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_LATEST_VERSION/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose  
   chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+  rm -rf /usr/local/bin/docker-compose
+  ln -s $DOCKER_CONFIG/cli-plugins/docker-compose /usr/local/bin/docker-compose
 msg_ok "Installed Docker Compose $DOCKER_COMPOSE_LATEST_VERSION"
 fi
 
