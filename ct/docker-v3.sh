@@ -247,7 +247,8 @@ header_info
                 echo "[16] 10.200.0.0/23 (Infra-DMZ)"
                 echo "[17] 10.200.2.0/23 (DeMiNe0-DMZ)"
                 echo "[18] 10.200.4.0/23 (VaninoLLC-DMZ)"
-                echo "otherwise enter the number corresponding to the Prefix you would like to use from above."
+                echo ""
+                echo "Enter the number corresponding to the Prefix you would like to use from above."
                 read -r NBPREFIX
                 NET=$(curl -X GET \
                 -H "Authorization: Token $NBTOKEN" \
