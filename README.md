@@ -10,7 +10,7 @@
 
 <h1 align="center" id="heading"> Proxmox VE 7 Post Install </h1>
 
-This script will give options to Disable the Enterprise Repo, Add/Correct PVE7 Sources, Enable the No-Subscription Repo, Add Test Repo, Disable Subscription Nag and Update Proxmox VE.
+The script will give options to Disable the Enterprise Repo, Add/Correct PVE7 Sources, Enable the No-Subscription Repo, Add Test Repo, Disable Subscription Nag and Update Proxmox VE.
  
 Run the following in the Proxmox Shell. ⚠️ **PVE7 ONLY**
 
@@ -18,7 +18,7 @@ Run the following in the Proxmox Shell. ⚠️ **PVE7 ONLY**
 bash -c "$(wget -qLO - https://github.com/TheRealAlexV/ProxmoxHelpers/raw/main/misc/post-install-v3.sh)"
 ```
 
-It's recommended to update Proxmox after running this script, before adding any VM/CT.
+It's recommended to answer `y` to all options.
 
 ____________________________________________________________________________________________ 
 
@@ -883,7 +883,7 @@ ________________________________________________________________________________
 </details>
 
 <details>
-<summary markdown="span"> 🔸Prometheus LXC </summary>
+<summary markdown="span"> Prometheus LXC </summary>
  
 <p align="center"><img src="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/misc/images/prome.png?raw=true" height="100"/></p>
 
