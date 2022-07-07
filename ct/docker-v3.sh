@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+source "$HOME/.ProxmoxHelpers/config.sh"
 NEXTID=$(pvesh get /cluster/nextid)
 INTEGER='^[0-9]+$'
 YW=`echo "\033[33m"`
@@ -115,6 +116,7 @@ function advanced_settings() {
         echo -en "${DGN}Set CT Type ${BL}Privileged${CL}"  
         fi;
 echo -e " ${CM}${CL} \r"
+
 sleep 1
 clear
 header_info
@@ -129,6 +131,7 @@ header_info
         echo -en "${DGN}Set CT Password ${BL}$PW1${CL}"
         fi;
 echo -e " ${CM}${CL} \r"
+
 sleep 1
 clear
 header_info
@@ -140,6 +143,7 @@ header_info
         if [ -z $CT_ID ]; then CT_ID=$NEXTID; fi;
         echo -en "${DGN}Set CT ID To ${BL}$CT_ID${CL}"
 echo -e " ${CM}${CL} \r"
+
 sleep 1
 clear
 header_info
@@ -156,6 +160,7 @@ header_info
         fi
         echo -en "${DGN}Set CT Name To ${BL}$HN${CL}"
 echo -e " ${CM}${CL} \r"
+
 sleep 1
 clear
 header_info
@@ -170,6 +175,7 @@ header_info
         if ! [[ $DISK_SIZE =~ $INTEGER ]] ; then echo "ERROR! DISK SIZE MUST HAVE INTEGER NUMBER!"; exit; fi;
         echo -en "${DGN}Set Disk Size To ${BL}$DISK_SIZE${CL}${DGN}GB${CL}"
 echo -e " ${CM}${CL} \r"
+
 sleep 1
 clear
 header_info
@@ -184,6 +190,7 @@ header_info
         if [ -z $CORE_COUNT ]; then CORE_COUNT="2"; fi;
         echo -en "${DGN}Set Cores To ${BL}$CORE_COUNT${CL}${DGN}vCPU${CL}"
 echo -e " ${CM}${CL} \r"
+
 sleep 1
 clear
 header_info
@@ -199,6 +206,7 @@ header_info
         if [ -z $RAM_SIZE ]; then RAM_SIZE="2048"; fi;
         echo -en "${DGN}Set RAM To ${BL}$RAM_SIZE${CL}${DGN}MiB RAM${CL}"
 echo -e " ${CM}${CL} \n"
+
 sleep 1
 clear
 header_info
@@ -215,6 +223,7 @@ header_info
         if [ -z $BRG ]; then BRG="vmbr0"; fi;
         echo -en "${DGN}Set Bridge To ${BL}$BRG${CL}"
 echo -e " ${CM}${CL} \n"
+
 sleep 1
 clear
 header_info
@@ -226,16 +235,36 @@ header_info
         echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
         echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
         echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
-    	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
-        echo -e "${YW}Enter a Static IPv4 CIDR Address, or Press [ENTER] for Default: DHCP "
+    	  echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+        echo -e "${YW}How would you like to Assign the IP address?"
+        echo -e "${YW}Enter \"DHCP\" for DHCP, or just press [ENTER] for Auto Selection from Netbox"
+        echo -e "${YW}Or just enter a Static IPv4 CIDR Address to manually specify:  "
         read NET
-        if [ -z $NET ]; then NET="dhcp"; fi;
+        if [ -z $NET ]; then 
+                echo "[1] 10.100.0.0/22 (Infra)"
+                echo "[14] 10.104.2.0/23 (DeMiNe0)"
+                echo "[15] 10.104.4.0/23 (VaninoLLC)"
+                echo "[16] 10.200.0.0/23 (Infra-DMZ)"
+                echo "[17] 10.200.2.0/23 (DeMiNe0-DMZ)"
+                echo "[18] 10.200.4.0/23 (VaninoLLC-DMZ)"
+                echo "otherwise enter the number corresponding to the Prefix you would like to use from above."
+                read -r NBPREFIX
+                NET=$(curl -X GET \
+                -H "Authorization: Token $NBTOKEN" \
+                -H "Content-Type: application/json" \
+                -H "Accept: application/json; indent=4" \
+                "$NBADDR/api/ipam/prefixes/$NBPREFIX/available-ips/?limit=1" \
+                | jq -r '.[].address')    
+        elif [ $NET == 'dhcp' ]; then
+                NET="dhcp";
+        fi;
         echo -en "${DGN}Set Static IP Address To ${BL}$NET${CL}"
 echo -e " ${CM}${CL} \n"
+
 sleep 1
 clear
 header_info
-    	echo -e "${RD}Using Advanced Settings${CL}"
+      	echo -e "${RD}Using Advanced Settings${CL}"
         echo -e "${DGN}Using CT Type ${BGN}$CT_TYPE1${CL}"
         echo -e "${DGN}Using CT Password ${BGN}$PW1${CL}"
         echo -e "${DGN}Using CT ID ${BGN}$CT_ID${CL}"
@@ -243,38 +272,39 @@ header_info
         echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
         echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
         echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
-    	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+    	  echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
         echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
-        echo -e "${YW}Enter a Gateway IP (mandatory if static IP is used), or Press [ENTER] for Default: NONE "
-        read GATE1
-        if [ -z $GATE1 ]; then GATE1="NONE" GATE=""; 
-        echo -en "${DGN}Set Gateway IP To ${BL}$GATE1${CL}"
-        else
-          GATE=",gw=$GATE1"
-        echo -en "${DGN}Set Gateway IP To ${BL}$GATE1${CL}"
-        fi;
-echo -e " ${CM}${CL} \n"
-sleep 1
-clear
-header_info
-        echo -e "${RD}Using Advanced Settings${CL}"
-        echo -e "${DGN}Using CT Type ${BGN}$CT_TYPE1${CL}"
-        echo -e "${DGN}Using CT Password ${BGN}$PW1${CL}"
-        echo -e "${DGN}Using CT ID ${BGN}$CT_ID${CL}"
-        echo -e "${DGN}Using CT Name ${BGN}$HN${CL}"
-        echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
-        echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
-        echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
-	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
-        echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
-        echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
-        echo -e "${YW}Enter a VLAN Tag, or Press [ENTER] for Default: NONE "
-        read VLAN1
-        if [ -z $VLAN1 ]; then VLAN1="NONE" VLAN=""; 
-        echo -en "${DGN}Set VLAN Tag To ${BL}$VLAN1${CL}"
-        else
-          VLAN=",tag=$VLAN1"
-        echo -en "${DGN}Set VLAN Tag To ${BL}$VLAN1${CL}"
+        if [ ! -z $NBPREFIX ]; then
+          case $NBPREFIX in
+            "1")
+              GATE1="10.100.0.1"
+            ;;
+            "14")
+              GATE1="10.104.2.1"
+            ;;
+            "15")
+              GATE1="10.104.4.1"
+            ;;
+            "16")
+              GATE1="10.200.0.1"
+            ;;
+            "17")
+              GATE1="10.200.2.1"
+            ;;
+            "18")
+              GATE1="10.200.4.0"
+            ;;
+          esac
+          echo -en "${DGN}Set Gateway IP To ${BL}$GATE1${CL}"
+        else        
+          echo -e "${YW}Enter a Gateway IP (mandatory if static IP is used), or Press [ENTER] for Default: NONE "
+          read GATE1
+          if [ -z $GATE1 ]; then GATE1="NONE" GATE=""; 
+            echo -en "${DGN}Set Gateway IP To ${BL}$GATE1${CL}"
+          else
+            GATE=",gw=$GATE1"
+            echo -en "${DGN}Set Gateway IP To ${BL}$GATE1${CL}"
+          fi;
         fi;
 echo -e " ${CM}${CL} \n"
 
@@ -289,7 +319,61 @@ header_info
         echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
         echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
         echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
-	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+      	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+        echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
+        echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
+        if [ ! -z $NBPREFIX ]; then
+          case $NBPREFIX in
+            "1")
+              VLAN1="NONE"
+              VLAN=""
+            ;;
+            "14")
+              VLAN1="50"
+              VLAN=",tag=$VLAN1"
+            ;;
+            "15")
+              VLAN1="52"
+              VLAN=",tag=$VLAN1"
+            ;;
+            "16")
+              VLAN1="2"
+              VLAN=",tag=$VLAN1"
+            ;;
+            "17")
+              VLAN1="51"
+              VLAN=",tag=$VLAN1"
+            ;;
+            "18")
+              VLAN1="53"
+              VLAN=",tag=$VLAN1"
+            ;;
+          esac
+          echo -en "${DGN}Set VLAN Tag To ${BL}$VLAN1${CL}"
+        else  
+          echo -e "${YW}Enter a VLAN Tag, or Press [ENTER] for Default: NONE "
+          read VLAN1
+          if [ -z $VLAN1 ]; then VLAN1="NONE" VLAN=""; 
+            echo -en "${DGN}Set VLAN Tag To ${BL}$VLAN1${CL}"
+          else
+            VLAN=",tag=$VLAN1"
+          echo -en "${DGN}Set VLAN Tag To ${BL}$VLAN1${CL}"
+          fi;
+        fi;
+echo -e " ${CM}${CL} \n"
+
+sleep 1
+clear
+header_info
+        echo -e "${RD}Using Advanced Settings${CL}"
+        echo -e "${DGN}Using CT Type ${BGN}$CT_TYPE1${CL}"
+        echo -e "${DGN}Using CT Password ${BGN}$PW1${CL}"
+        echo -e "${DGN}Using CT ID ${BGN}$CT_ID${CL}"
+        echo -e "${DGN}Using CT Name ${BGN}$HN${CL}"
+        echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
+        echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
+        echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
+	      echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
         echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
         echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
         echo -e "${DGN}Using VLAN Tag ${BGN}$VLAN1${CL}"
@@ -302,6 +386,7 @@ header_info
         echo -en "${DGN}Set DOMAIN (without Host) To ${BL}$DOMAIN1${CL}"
         fi;
 echo -e " ${CM}${CL} \n"
+
 sleep 1
 clear
 header_info
@@ -313,7 +398,7 @@ header_info
         echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
         echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
         echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
-	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+      	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
         echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
         echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
         echo -e "${DGN}Using VLAN Tag ${BGN}$VLAN1${CL}"
@@ -339,7 +424,7 @@ header_info
         echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
         echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
         echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
-	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+      	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
         echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
         echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
         echo -e "${DGN}Using VLAN Tag ${BGN}$VLAN1${CL}"
