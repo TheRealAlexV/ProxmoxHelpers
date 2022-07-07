@@ -50,9 +50,7 @@ echo "Please enter a github user account to add it's SSH key to the root authori
 echo "Leave this blank if you don't want to use an ssh key. You will need to log in using the Proxmox Console." >&2
 read -r githubuser
 
-fullname=$( curl -s https://api.github.com/users/${githubuser} | jq -r '.name' )
-
-keycomment="$fullname github:${githubuser}"
+keycomment="github:${githubuser}"
 
 curl -s https://github.com/${githubuser}.keys >$tmpfile
 if [[ $( stat -c'%s' $tmpfile ) -gt 1 ]]; then
