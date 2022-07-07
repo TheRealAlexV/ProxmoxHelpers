@@ -279,21 +279,27 @@ header_info
           case $NBPREFIX in
             "1")
               GATE1="10.100.0.1"
+              GATE=",gw=$GATE1"
             ;;
             "14")
               GATE1="10.104.2.1"
+              GATE=",gw=$GATE1"
             ;;
             "15")
               GATE1="10.104.4.1"
+              GATE=",gw=$GATE1"
             ;;
             "16")
               GATE1="10.200.0.1"
+              GATE=",gw=$GATE1"
             ;;
             "17")
               GATE1="10.200.2.1"
+              GATE=",gw=$GATE1"
             ;;
             "18")
               GATE1="10.200.4.0"
+              GATE=",gw=$GATE1"
             ;;
           esac
           echo -en "${DGN}Set Gateway IP To ${BL}$GATE1${CL}"
