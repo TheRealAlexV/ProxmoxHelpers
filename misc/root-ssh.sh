@@ -56,6 +56,8 @@ keycomment="github:${githubuser}"
 curl -s https://github.com/${githubuser}.keys >$tmpfile
 if [[ $( stat -c'%s' $tmpfile ) -gt 1 ]]; then
   sed -i -e "s/$/ ${keycomment}/" $tmpfile
+  mkdir -p /root/.ssh
+  touch /root/.ssh/authorized_keys
   cat $tmpfile >>/root/.ssh/authorized_keys
   echo >>/root/.ssh/authorized_keys
   chmod 600 /root/.ssh/authorized_keys
