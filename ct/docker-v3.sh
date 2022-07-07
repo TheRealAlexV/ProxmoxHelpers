@@ -257,7 +257,6 @@ echo -e " ${CM}${CL} \n"
 sleep 1
 clear
 header_info
-
         echo -e "${RD}Using Advanced Settings${CL}"
         echo -e "${DGN}Using CT Type ${BGN}$CT_TYPE1${CL}"
         echo -e "${DGN}Using CT Password ${BGN}$PW1${CL}"
@@ -278,6 +277,7 @@ header_info
         echo -en "${DGN}Set VLAN Tag To ${BL}$VLAN1${CL}"
         fi;
 echo -e " ${CM}${CL} \n"
+
 sleep 1
 clear
 header_info
@@ -293,6 +293,58 @@ header_info
         echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
         echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
         echo -e "${DGN}Using VLAN Tag ${BGN}$VLAN1${CL}"
+        echo -e "${YW}Enter a Domain Name (Without Host), or Press [ENTER] for Default: NONE "
+        read DOMAIN1
+        if [ -z $DOMAIN1 ]; then DOMAIN1="" DOMAIN=""; 
+        echo -en "${DGN}Set DOMAIN (without Host) To ${BL}$DOMAIN1${CL}"
+        else
+          DOMAIN=",tag=$DOMAIN1"
+        echo -en "${DGN}Set DOMAIN (without Host) To ${BL}$DOMAIN1${CL}"
+        fi;
+echo -e " ${CM}${CL} \n"
+sleep 1
+clear
+header_info
+        echo -e "${RD}Using Advanced Settings${CL}"
+        echo -e "${DGN}Using CT Type ${BGN}$CT_TYPE1${CL}"
+        echo -e "${DGN}Using CT Password ${BGN}$PW1${CL}"
+        echo -e "${DGN}Using CT ID ${BGN}$CT_ID${CL}"
+        echo -e "${DGN}Using CT Name ${BGN}$HN${CL}"
+        echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
+        echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
+        echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
+	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+        echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
+        echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
+        echo -e "${DGN}Using VLAN Tag ${BGN}$VLAN1${CL}"
+        echo -e "${DGN}Using DOMAIN ${BGN}$DOMAIN1${CL}"
+        echo -e "${YW}Enter a Host Name (Without Domain), or Press [ENTER] for Default: NONE "
+        read HOSTNAME1
+        if [ -z $HOSTNAME1 ]; then HOSTNAME1="" HOSTNAME=""; 
+        echo -en "${DGN}Set HOST (without Domain) To ${BL}$HOSTNAME1${CL}"
+        else
+          HOSTNAME=",tag=$HOSTNAME1"
+        echo -en "${DGN}Set HOST (without Domain) To ${BL}$HOSTNAME1${CL}"
+        fi;
+echo -e " ${CM}${CL} \n"
+
+sleep 1
+clear
+header_info
+        echo -e "${RD}Using Advanced Settings${CL}"
+        echo -e "${DGN}Using CT Type ${BGN}$CT_TYPE1${CL}"
+        echo -e "${DGN}Using CT Password ${BGN}$PW1${CL}"
+        echo -e "${DGN}Using CT ID ${BGN}$CT_ID${CL}"
+        echo -e "${DGN}Using CT Name ${BGN}$HN${CL}"
+        echo -e "${DGN}Using Disk Size ${BGN}$DISK_SIZE${CL}${DGN}GB${CL}"
+        echo -e "${DGN}Using ${BGN}${CORE_COUNT}${CL}${DGN}vCPU${CL}"
+        echo -e "${DGN}Using ${BGN}${RAM_SIZE}${CL}${DGN}MiB RAM${CL}"
+	echo -e "${DGN}Using Bridge ${BGN}${BRG}${CL}"
+        echo -e "${DGN}Using Static IP Address ${BGN}$NET${CL}"
+        echo -e "${DGN}Using Gateway IP Address ${BGN}$GATE1${CL}"
+        echo -e "${DGN}Using VLAN Tag ${BGN}$VLAN1${CL}"
+        echo -e "${DGN}Using DOMAIN ${BGN}$DOMAIN1${CL}"
+        echo -e "${DGN}Using HOST ${BGN}$HOSTNAME1${CL}"
 
 read -p "Are these settings correct(y/n)? " -n 1 -r
 echo
@@ -337,7 +389,7 @@ export PCT_OPTIONS="
   -unprivileged $CT_TYPE
   $PW
 "
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/ct/create_lxc.sh)" || exit
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/ct/create_lxc.sh)" || exit
 
 LXC_CONFIG=/etc/pve/lxc/${CTID}.conf
 cat <<EOF >> $LXC_CONFIG
@@ -349,8 +401,10 @@ msg_info "Starting LXC Container"
 pct start $CTID
 msg_ok "Started LXC Container"
 
-lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/tteck/Proxmox/main/setup/docker-install.sh)" || exit
+lxc-attach -n $CTID -- bash -c "$(wget -qLO - https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/setup/docker-install.sh)" || exit
 
 IP=$(pct exec $CTID ip a s dev eth0 | sed -n '/inet / s/\// /p' | awk '{print $2}')
+
+source <(curl -s https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/register-infra.sh)
 
 msg_ok "Completed Successfully!\n"

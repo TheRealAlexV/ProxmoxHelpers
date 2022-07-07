@@ -1,7 +1,7 @@
 <h1 align="center" id="heading"> Select a Proxmox Helper </h1>
 <p align="center"><sub> Always remember to use due diligence when sourcing scripts and automation tasks from third-party sites. </sub></p>
 
-<a href="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/LICENSE"><img src="https://badgen.net/github/license/tteck/Proxmox" ></a> <a href="https://tteck.github.io/Proxmox/"><img src="https://badgen.net/github/checks/tteck/Proxmox/main/"></a> <a href="https://github.com/TheRealAlexV/ProxmoxHelpers/discussions"><img src="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/misc/images/discussions.png?raw=true" height="21" /></a> <a href="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/CHANGELOG.MD"><img src="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/misc/images/change.png?raw=true" height="21" /></a>🔸
+<a href="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/LICENSE"><img src="https://badgen.net/github/license/TheRealAlexV/ProxmoxHelpers" ></a> <a href="https://tteck.github.io/Proxmox/"><img src="https://badgen.net/github/checks/TheRealAlexV/ProxmoxHelpers/main/"></a> <a href="https://github.com/TheRealAlexV/ProxmoxHelpers/discussions"><img src="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/misc/images/discussions.png?raw=true" height="21" /></a> <a href="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/CHANGELOG.MD"><img src="https://github.com/TheRealAlexV/ProxmoxHelpers/blob/main/misc/images/change.png?raw=true" height="21" /></a>🔸
 
 <details>
 <summary markdown="span"> Proxmox VE 7 Post Install</summary>
@@ -186,7 +186,7 @@ bash -c "$(wget -qLO - https://github.com/TheRealAlexV/ProxmoxHelpers/raw/main/m
 After install, reboot Home Assistant and **clear browser cache** then Add HACS integration.
 
 
-⚙️ [**Update Menu**](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/update-menu.png)
+⚙️ [**Update Menu**](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/update-menu.png)
 
 Run in the LXC console
 ```yaml
@@ -527,7 +527,7 @@ ________________________________________________________________________________
 <details>
 <summary markdown="span"> Mariadb LXC </summary>
  
-<p align="center"><img src="https://mariadb.com/wp-content/webp-express/webp-images/doc-root/wp-content/themes/sage/dist/images/mariadb-logo-white.png.webp" alt="MariaDB"/><img src="https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/adminer_logo-cl.png" height="60"></p>
+<p align="center"><img src="https://mariadb.com/wp-content/webp-express/webp-images/doc-root/wp-content/themes/sage/dist/images/mariadb-logo-white.png.webp" alt="MariaDB"/><img src="https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/adminer_logo-cl.png" height="60"></p>
 
 <h1 align="center" id="heading"> Mariadb LXC </h1>
 
@@ -631,7 +631,7 @@ Run in the LXC console
 ```yaml
 apt update && apt upgrade -y
 ```
-⚙️ [**Adminer**](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/adminer.png) (formerly phpMinAdmin) is a full-featured database management tool
+⚙️ [**Adminer**](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/adminer.png) (formerly phpMinAdmin) is a full-featured database management tool
  
  `http://your-mariadb-lxc-ip/adminer/`
 
@@ -642,7 +642,7 @@ ________________________________________________________________________________
 <details>
 <summary markdown="span"> PostgreSQL LXC </summary>
  
-<p align="center"><img src="https://wiki.postgresql.org/images/3/30/PostgreSQL_logo.3colors.120x120.png" height="100"/><img src="https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/adminer_logo-cl.png" height="60"></p>
+<p align="center"><img src="https://wiki.postgresql.org/images/3/30/PostgreSQL_logo.3colors.120x120.png" height="100"/><img src="https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/adminer_logo-cl.png" height="60"></p>
 
 <h1 align="center" id="heading"> PostgreSQL LXC </h1>
 
@@ -703,7 +703,7 @@ Run in the LXC console
 ```yaml
 apt update && apt upgrade -y
 ```
-⚙️ [**Adminer**](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/adminer.png) (formerly phpMinAdmin) is a full-featured database management tool
+⚙️ [**Adminer**](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/adminer.png) (formerly phpMinAdmin) is a full-featured database management tool
  
  `http://your-PostgreSQL-lxc-ip/adminer/`
 
@@ -993,7 +993,7 @@ ________________________________________________________________________________
 <details>
 <summary markdown="span"> Docker LXC </summary>
  
-<p align="center"><img src="https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/docker.png" height="100"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/docker.png" height="100"/></p>
 
 <h1 align="center" id="heading"> Docker LXC </h1>
 <h3 align="center"> Options to Install Portainer and/or Docker Compose</h3>
@@ -1588,7 +1588,7 @@ ________________________________________________________________________________
 
 <h1 align="center" id="heading"> Webmin System Administration </h1>
 
-To Install Webmin System Administration [(Screenshot)](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/file-manager.png), ⚠️ run the following in the LXC console.
+To Install Webmin System Administration [(Screenshot)](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/file-manager.png), ⚠️ run the following in the LXC console.
 
 ```yaml
 bash -c "$(wget -qLO - https://github.com/TheRealAlexV/ProxmoxHelpers/raw/main/misc/webmin.sh)"

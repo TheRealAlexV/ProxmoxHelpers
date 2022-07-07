@@ -73,7 +73,7 @@ function load_module() {
 TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
 
-wget -qL https://raw.githubusercontent.com/tteck/Proxmox/main/setup/adguard_setup.sh
+wget -qL https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/setup/adguard_setup.sh
 
 load_module overlay
 

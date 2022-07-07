@@ -163,7 +163,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - **ALL LXC's**
-  - New [V3 Install Script](https://github.com/tteck/Proxmox/issues/162) 
+  - New [V3 Install Script](https://github.com/TheRealAlexV/ProxmoxHelpers/issues/162) 
 - **ioBroker LXC**
   - New Script V3
 
@@ -444,28 +444,28 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - **Node-Red LXC**
-  - Add Install [Themes Script](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/node-red-themes.png)
+  - Add Install [Themes Script](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/node-red-themes.png)
 
 ## 2022-02-16
 
 ### Changed
 
 - **Home Assistant Container LXC**
-  - Add Options to [Update Menu](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/update-menu.png)
+  - Add Options to [Update Menu](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/update-menu.png)
 
 ## 2022-02-14
 
 ### Changed
 
 - **Home Assistant Container LXC**
-  - Add [Update Menu](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/update-menu.png)
+  - Add [Update Menu](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/update-menu.png)
 
 ## 2022-02-13
 
 ### Changed
 
 - **Mariadb LXC**
-  - Add [Adminer](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/adminer.png) (formerly phpMinAdmin), a full-featured database management tool
+  - Add [Adminer](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/adminer.png) (formerly phpMinAdmin), a full-featured database management tool
 
 ## 2022-02-12
 
@@ -483,7 +483,7 @@ All notable changes to this project will be documented in this file.
 - **GamUntu LXC**
   - New Script
 - **Jellyfin Media Server LXC**
-  - new script to fix [start issue](https://github.com/tteck/Proxmox/issues/29#issue-1127457380)
+  - new script to fix [start issue](https://github.com/TheRealAlexV/ProxmoxHelpers/issues/29#issue-1127457380)
 - **MotionEye NVR LXC**
   - New script
 
@@ -557,7 +557,7 @@ All notable changes to this project will be documented in this file.
   - `va-driver-all` is preinstalled
   - now using Ubuntu 21.10
 - **misc**
-  - new GUI script [(Screenshot)](https://raw.githubusercontent.com/tteck/Proxmox/main/misc/images/pms-copy-data.png) to copy data from one Plex Media Server LXC to another Plex Media Server LXC 
+  - new GUI script [(Screenshot)](https://raw.githubusercontent.com/TheRealAlexV/ProxmoxHelpers/main/misc/images/pms-copy-data.png) to copy data from one Plex Media Server LXC to another Plex Media Server LXC 
 
 
 ## Initial Catch up - 2022-01-23
