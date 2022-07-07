@@ -14,7 +14,7 @@ curl -s -X POST \
 -H "Authorization: Token $NBTOKEN" \
 -H "Content-Type: application/json" \
 http://netbox.vaninollc.com/api/ipam/ip-addresses/ \
---data "$(generate_post_data)"
+--data "$(post_data)"
 
 post_data()
 {
@@ -34,4 +34,4 @@ curl -k -X 'POST' \
 -H "Authorization: $PFCID $PFTOKEN" \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
---data "$(generate_post_data)"
+--data "$(post_data)"
