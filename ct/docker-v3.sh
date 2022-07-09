@@ -16,7 +16,7 @@ APP="Docker"
 NSAPP=$(echo ${APP,,} | tr -d ' ')
 set -o errexit
 set -o errtrace
-set -o nounset
+#set -o nounset
 set -o pipefail
 shopt -s expand_aliases
 alias die='EXIT=$? LINE=$LINENO error_exit'
