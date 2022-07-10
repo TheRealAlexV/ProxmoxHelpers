@@ -255,7 +255,27 @@ header_info
                 -H "Content-Type: application/json" \
                 -H "Accept: application/json; indent=4" \
                 "$NBADDR/api/ipam/prefixes/$NBPREFIX/available-ips/?limit=1" \
-                | jq -r '.[].address')    
+                | jq -r '.[].address')
+                case $NBPREFIX in
+                  "1")
+                    NETNAME="INF"
+                  ;;
+                  "14")
+                    NETNAME="DEM"
+                  ;;
+                  "15")
+                    NETNAME="VLC"
+                  ;;
+                  "16")
+                    NETNAME="INFDMZ"
+                  ;;
+                  "17")
+                    NETNAME="DEMDMZ"
+                  ;;
+                  "18")
+                    NETNAME="VLCDMZ"
+                  ;;
+                esac    
         elif [ $NET == 'dhcp' ]; then
                 NET="dhcp";
         fi;

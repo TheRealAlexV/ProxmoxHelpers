@@ -1,6 +1,7 @@
 #!/bin/bash
 source "$HOME/.ProxmoxHelpers/config.sh"
 
+echo "Adding host to netbox"
 post_data()
 {
   cat <<EOF
@@ -14,8 +15,9 @@ curl -s -X POST \
 -H "Authorization: Token $NBTOKEN" \
 -H "Content-Type: application/json" \
 "$NBADDR/api/ipam/ip-addresses/" \
---data "$(post_data)"
+--data "$(post_data)" | jq
 
+echo "Adding host to pfsense DNS"
 post_data()
 {
   cat <<EOF
@@ -34,4 +36,23 @@ curl -k -X 'POST' \
 -H "Authorization: $PFCID $PFTOKEN" \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
---data "$(post_data)"
+--data "$(post_data)" | jq
+
+echo "Adding host to pfsense firewall alaises"
+post_data()
+{
+  cat <<EOF
+{
+  "address": ["$(echo $NET | cut -d "/" -f1)"],
+  "apply": true,
+  "name": "infra_$HOSTNAME1_$NETNAME",
+  "type": "host"
+}
+EOF
+}
+curl -k -X 'POST' \
+"$PFADDR/api/v1/firewall/alias" \
+-H "Authorization: $PFCID $PFTOKEN" \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+--data "$(post_data)" | jq
