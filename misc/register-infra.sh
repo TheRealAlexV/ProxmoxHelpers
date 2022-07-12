@@ -45,7 +45,7 @@ post_data()
 {
   "address": ["$(echo $NET | cut -d "/" -f1)"],
   "apply": true,
-  "name": "infra_$HOSTNAME1_$NETNAME",
+  "name": "infra_${HOSTNAME1}_${NETNAME}",
   "type": "host"
 }
 EOF
