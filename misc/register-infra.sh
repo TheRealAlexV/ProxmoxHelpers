@@ -32,8 +32,8 @@ post_data()
 EOF
 }
 curl -k -X 'POST' \
-"$PFADDR/api/v1/services/unbound/host_override" \
--H "Authorization: $PFCID $PFTOKEN" \
+"$PFADDR/api/v2/services/dns_resolver/host_override" \
+-H "X-API-Key: $PFTOKEN" \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 --data "$(post_data)" | jq
@@ -51,8 +51,8 @@ post_data()
 EOF
 }
 curl -k -X 'POST' \
-"$PFADDR/api/v1/firewall/alias" \
--H "Authorization: $PFCID $PFTOKEN" \
+"$PFADDR/api/v2/firewall/alias" \
+-H "X-API-Key: $PFTOKEN" \
 -H 'accept: application/json' \
 -H 'Content-Type: application/json' \
 --data "$(post_data)" | jq
