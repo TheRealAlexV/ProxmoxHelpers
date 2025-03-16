@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$HOME/.ProxmoxHelpers/config.sh"
+source "$HOME/ProxmoxScripts/.ProxmoxHelpers/config.sh"
 
 echo "Adding host to netbox"
 post_data()

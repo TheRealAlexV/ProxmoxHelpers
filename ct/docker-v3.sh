@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source "$HOME/.ProxmoxHelpers/config.sh"
+source "$HOME/ProxmoxScripts/.ProxmoxHelpers/config.sh"
 NEXTID=$(pvesh get /cluster/nextid)
 INTEGER='^[0-9]+$'
 YW=`echo "\033[33m"`
